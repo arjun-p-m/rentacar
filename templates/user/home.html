@@ -1,0 +1,86 @@
+{% extends 'user/shared/base.html' %}
+
+{% load static %}
+
+{% block content %}
+			
+<header class="row p-5 text-center">
+    <h2 class="col-12 text-center tm-section-title">Welcome to Car House</h2>
+    <p class="col-12 text-center">Total 3 HTML pages are included in this template. Header image has a parallax effect. You can feel free to download, edit and use this TemplateMo layout for your commercial or non-commercial websites.</p>
+</header>
+
+<div class="tm-paging-links">
+    <nav>
+        <ul>
+            <li class="tm-paging-item"><a href="{% url 'home' %}" class="tm-paging-link active">All</a></li>
+            {% for i in cat %}
+                <li class="tm-paging-item"><a href="{% url 'filter' cat=i.category_name %}" class="tm-paging-link active">{{ i.category_name }}</a></li>
+            {% endfor %}
+                
+        </ul>
+    </nav>
+</div>
+
+<!-- Gallery -->
+<div class="row tm-gallery">
+    <!-- gallery page 1 -->
+    <div id="tm-gallery-page-pizza" class="tm-gallery-page">
+        
+        {% for i in data %}
+        <article class="col-sm-4 tm-gallery-item p-3">
+            <figure>
+                <img src="/media/{{ i.image }}" alt="Image" class="img-fluid tm-gallery-img" />
+                <figcaption>
+                    <table class="table table-dark">
+                        <tr>
+                            <td><abbr title="Adult Passangers"><i class="fa fa-user" aria-hidden="true"></i></abbr></td>
+                            <td><abbr title="Large Sutecase"><i class="fa fa-briefcase" aria-hidden="true"></i></abbr></td>
+                            <td><abbr title="Small Sutecase"><i class="fa fa-shopping-bag" aria-hidden="true"></i></abbr></td>
+                            <td><abbr title="No. of Doors"><i class="fas fa-door-closed    "></i></abbr></td>
+                            <td><abbr title="Air Condition"><i class="fas fa-snowflake    "></i></abbr></td>
+                        </tr>
+                        <tr>
+                            <td>{{ i.passanger }}</td>
+                            <td>{{ i.large_luggage }}</td>
+                            <td>{{ i.small_luggage }}</td>
+                            <td>{{ i.doors }}</td>
+                            <td>
+                                {% if i.air_condition %}
+                                    Yes
+                                {% else %}
+                                    No
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                    <h3 class="tm-gallery-title">{{ i.category.category_name }}</h3>
+                    <h6>{{ i.name }} or similar</h6>
+                    <p class="tm-gallery-description">{{ i.description }}</p>
+                    
+                    {% if i.offer_price == None %}
+                    <span class="tm-gallery-price text-danger"><del>Rs. {{ i.rent_amount }}</del></span><br>
+                    <span class="tm-gallery-price"> Rs. {{ i.rent_amount }}</span>
+                    {% else %}
+                    <span class="tm-gallery-price text-danger"><del>Rs. {{ i.rent_amount }}</del></span><br>
+                    <span class="tm-gallery-price"> Rs. {{ i.offer_price }} ( {{ i.offer.discount }}% )</span>
+                    {% endif %}
+                      
+                    <p class="tm-gallery-description">Company Name: {{ i.vendor.company_name }}</p>
+                   
+                    <a href="{% url 'user_booking' id=i.id %}" class="btn btn-warning btn-block mt-2">Book Now</a>
+                </figcaption>
+            </figure>
+        </article>
+        {% endfor %}
+            
+    </div> <!-- gallery page 1 -->
+</div>
+
+
+<script>
+
+
+</script>
+
+{% endblock content %}
+    

@@ -1,0 +1,26 @@
+{% extends 'vendor/shared/base.html' %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-5 pl-5">
+        <form method="post" enctype="multipart/form-data">
+            <h3>Create Discount</h3>
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button class="btn btn-info btn-block">ADD</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('input').addClass('form-control')
+        $('textarea').addClass('form-control').attr('rows','3')
+        $('select').addClass('form-control')
+        $('input[type=checkbox]').removeClass('form-control')
+    })
+</script>
+
+{% endblock content %}
+    

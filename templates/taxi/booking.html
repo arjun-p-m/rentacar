@@ -1,0 +1,55 @@
+{% extends 'taxi/shared/base.html' %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-striped">
+            <tr>
+                <th>Sl No.</th>
+                <th>Customer Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+            
+            {% for i in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.user }}</td>
+                    <td>{{ i.user.phone }}</td>
+                    <td>{{ i.user.email }}</td>
+                    <td>{{ i.start_from }}</td>
+                    <td>{{ i.to_location }}</td>
+                    <td>{{ i.date }}</td>
+                    {% if i.status == 0 %}
+                    <td>
+                        <a href="{% url 'confirm' id=i.id %}" class="btn btn-primary">Confirm</a>
+                        <a href="{% url 'deconfirm' id=i.id %}" class="btn btn-danger">Reject</a>
+                    </td>
+                    {% elif i.status == 1 %}
+                    <td>Confirmed</td> 
+                    {% else %}
+                    <td>Rejected</td> 
+                    {% endif %}
+                </tr>
+            {% endfor %}
+                
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('input').addClass('form-control')
+        $('textarea').addClass('form-control').attr('rows','3')
+        $('select').addClass('form-control')
+        $('input[type=checkbox]').removeClass('form-control')
+    })
+</script>
+
+{% endblock content %}
+    

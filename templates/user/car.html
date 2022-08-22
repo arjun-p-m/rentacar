@@ -1,0 +1,71 @@
+{% extends 'user/shared/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Gallery -->
+<div class="row mt-5 mb-5">
+    <!-- gallery page 1 -->
+    <div id="" class="col-sm-12">
+        
+    <h2 class="text-center tm-section-title">Car Details</h2>
+    
+    <table class="table">
+        <tr>
+            <th>Category Type: </th>
+            <td>{{ data.category.category_name }}</td>
+        </tr>
+        <tr>
+            <th>Car Model: </th>
+            <td>{{ data.name }}</td>
+        </tr>
+        <tr>
+            <th>Description: </th>
+            <td>{{ data.description }}</td>
+        </tr>
+        <tr>
+            <th>Image: </th>
+            <td><img src="/media/{{ data.image }}" alt="" srcset="" width="300"></td>
+        </tr>
+        <tr>
+            <th>Adult Passanger Count: </th>
+            <td>{{ data.passanger }}</td>
+        </tr>
+        <tr>
+            <th>Large Sutecase Count: </th>
+            <td>{{ data.large_luggage }}</td>
+        </tr>
+        <tr>
+            <th>Small Sutecase Count: </th>
+            <td>{{ data.small_luggage }}</td>
+        </tr>
+        <tr>
+            <th>No. of Doors: </th>
+            <td>{{ data.doors }}</td>
+        </tr>
+        <tr>
+            <th>A/C Status: </th>
+            <td>
+            {% if data.air_condition %}
+                Yes
+            {% else %}
+                No
+            {% endif %}
+            </td>
+        </tr>
+    </table>
+    <div class="text-right">
+        <a href="{% url 'history' %}" class="btn btn-secondary">Back</a>
+    </div>     
+    </div> <!-- gallery page 1 -->
+</div>
+
+
+<script>
+
+
+</script>
+
+{% endblock content %}
+    

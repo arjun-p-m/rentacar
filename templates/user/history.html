@@ -1,0 +1,107 @@
+{% extends 'user/shared/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Gallery -->
+<div class="row mt-5 mb-5">
+    <!-- gallery page 1 -->
+    <div id="" class="col-sm-12">
+        
+    <h2 class="text-center tm-section-title">Rent Car Order History</h2>
+    
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Car</th>
+            <th>Pick-Up Location</th>
+            <th>Pick-Up Date</th>
+            <th>Return Date</th>
+            <th>Booked Date</th>
+            <th>Total</th>
+            <th>Status</th>
+        </tr>
+        
+        {% for i in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'view_car' id=i.car.id %}">{{ i.car }}</a></td>
+                <td>{{ i.pick_up_location }}</td>
+                <td>{{ i.pick_date }} {{ i.pick_time }}</td>
+                <td>{{ i.return_date }} {{ i.return_time }}</td> 
+                <td>{{ i.date }}</td>
+                <td>{{ i.total }}/-</td>
+                <td>
+                    
+                    {% if i.status == 0 %}
+                        Booked
+                    {% elif i.status == 1 %}
+                        Confirmed
+                    {% elif i.status == 2 %}
+                        Canceled
+                    {% endif %}
+                        
+                </td>
+            </tr>
+        {% endfor %}
+            
+    </table>
+            
+    </div> <!-- gallery page 1 -->
+</div>
+
+
+<div class="row mt-5 mb-5">
+    <!-- gallery page 1 -->
+    <div id="" class="col-sm-12">
+        
+    <h2 class="text-center tm-section-title">Taxi Order History</h2>
+    
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Car</th>
+            <th>Driver Name</th>
+            <th>Phone</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+        
+        {% for i in data2 %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'view_car' id=i.taxi.id %}">{{ i.taxi }}</a></td>
+                <td>{{ i.taxi.vendor.first_name }} {{ i.taxi.vendor.last_name }}</td>
+                <td>{{ i.taxi.vendor.phone }}</td>
+                <td>{{ i.start_from }}</td> 
+                <td>{{ i.to_location }}</td>
+                <td>{{ i.date }}/-</td>
+                <td>
+                    
+                    {% if i.status == 0 %}
+                        Booked
+                    {% elif i.status == 1 %}
+                        Conirmed
+                    {% elif i.status == 2 %}
+                        Rejected
+                    {% endif %}
+                        
+                </td>
+            </tr>
+        {% endfor %}
+            
+    </table>
+            
+    </div> <!-- gallery page 1 -->
+</div>
+
+<script>
+
+
+</script>
+
+{% endblock content %}
+    

@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'signup' %}">SignUp</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'vendor_signup' %}">Vendor SignUp</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'taxi_signup' %}">Taxi SignUp</a>
+            </li>
+        </ul>
+    </div>
+</nav>

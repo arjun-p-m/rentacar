@@ -1,0 +1,121 @@
+{% extends 'user/shared/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<form method="post" id="myform">
+<!-- Gallery -->
+<div class="row mt-5 mb-5" id="loc">
+    <!-- gallery page 1 -->
+    <div id="" class="col-sm-6 offset-3">
+    <h2 class="text-center tm-section-title">Book Car</h2>
+    
+        {{ form.as_p }}
+        {% csrf_token %}
+        <span class="btn btn-success" id="check">Check Availability</span>
+        <div class="row" id="details">
+            <div class="col-sm-12 text-right">
+                <span class="font-weight-bold">Rent Amount:</span> <span id="amnt" class="text-info"></span>/ day<br>
+                <span class="font-weight-bold">No. of Day:</span> <span id="day"></span><br>
+                <span class="font-weight-bold">Total Amount:</span> <span id="total" class="text-success"></span>/-<br>
+                <br>
+                <span class="btn btn-info" id="chk_out">Check Out</span>
+            </div>
+        </div>
+        <input type="hidden" name="total2" id="total2">
+        <input type="hidden" name="no_day" id="no_day">
+        
+    <input type="hidden" name="price" id="price" value="{{ data.offer_price }}">
+    </div> <!-- gallery page 1 -->
+</div>
+<div class="row mt-5 mb-5" id="check_form">
+        <!-- gallery page 1 -->
+        <div id="" class="col-sm-4 offset-4 bg-light p-3">
+        <h2 class="text-center tm-section-title">Check-Out</h2>
+            <div class="form-group">
+                <input type="number" name="card" id="card" class="form-control" placeholder="Card Number"><br>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <input type="number" name="exp_month" id="exp_month" class="form-control" placeholder="Month">
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="number" name="exp_year" id="exp_year" class="form-control" placeholder="Year">
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="number" name="cvv" id="cvv" class="form-control" placeholder="CVV">
+                    </div>
+                </div><br>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Card Holder Name">
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <button class="btn btn-info btn-block" id="pay_now">Pay Now</button>
+                </div>
+            </div>
+        </div> <!-- gallery page 1 -->
+    </div>
+</div>
+</form>
+
+<script>
+
+$(function(){
+    $('#details').hide()
+    $('#check_form').hide()
+    $('#amnt').text($('#price').val())
+    // $('#id_return_date').change(function(){
+    //     calc()
+    // })
+    // $('#id_pick_date').change(function(){
+    //     calc()
+    // })
+    $('#chk_out').click(function(){
+        $('#loc').hide()
+        $('#check_form').show()
+    })
+
+    $('#check').click(function(){
+        l = location.href
+        l = l.split('/')
+        data = {'start':$('#id_pick_date').val(), 'end':$('#id_return_date').val(), 'id':l[l.length-1]}
+        $.get("{% url 'check' %}",data,function(dt){
+            if(dt['success'] == 1){
+                calc()
+            }
+            else{
+                alert('Oops Car not available on that date...!')
+            }
+        })
+    })
+})
+
+var calc = function(){
+    date1 = new Date($('#id_pick_date').val())
+    date2 = new Date($('#id_return_date').val())
+    if(date1 != 'Invalid Date' && date2 != 'Invalid Date'){
+        $('#details').show()
+        var time_difference = date2.getTime() - date1.getTime();  
+
+        var days_difference = time_difference / (1000 * 60 * 60 * 24);  
+        $('#day').text(days_difference)
+        $('#no_day').val(days_difference)
+        v = (days_difference*parseFloat($('#price').val())).toFixed(2)
+        $('#total').text(v)
+        $('#total2').val(v)
+    }
+}
+
+var getFormData = function($form){
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+    $.map(unindexed_array, function(n, i) {
+        indexed_array[n['name']] = n['value'];
+    });
+    return JSON.stringify(indexed_array);
+}
+
+</script>
+
+{% endblock content %}
+    

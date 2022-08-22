@@ -1,0 +1,37 @@
+{% extends 'user/shared/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Gallery -->
+<div class="row mt-5 mb-5">
+    <!-- gallery page 1 -->
+    <div id="" class="col-sm-6 offset-3">
+        
+    <h2 class="text-center tm-section-title">Edit Profile</h2>
+    
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-6">
+                <a href="{% url 'home' %}" class="btn btn-secondary btn-block">Back</a>
+            </div>
+            <div class="col-sm-6">
+                <button class="btn btn-info btn-block">Update</button>
+            </div>
+        </div>
+    </form>
+            
+    </div> <!-- gallery page 1 -->
+</div>
+
+
+<script>
+
+
+</script>
+
+{% endblock content %}
+    

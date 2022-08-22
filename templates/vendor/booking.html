@@ -1,0 +1,46 @@
+{% extends 'vendor/shared/base.html' %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-striped">
+            <tr>
+                <th>Sl No.</th>
+                <th>User</th>
+                <th>Car</th>
+                <th>Pick-Up Location</th>
+                <th>Pick-Up Date</th>
+                <th>Return Date</th>
+                <th>No. of Days</th>
+                <th>Amount</th>
+            </tr>
+            
+            {% for i in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.user }}</td>
+                    <td>{{ i.car.name }}</td>
+                    <td>{{ i.pick_up_location }}</td>
+                    <td>{{ i.pick_date }} {{ i.pick_time }}</td>
+                    <td>{{ i.return_date }} {{ i.return_time }}</td>
+                    <td>{{ i.no_of_days }}</td>
+                    <td>{{ i.total }}/-</td>
+                </tr>
+            {% endfor %}
+                
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('input').addClass('form-control')
+        $('textarea').addClass('form-control').attr('rows','3')
+        $('select').addClass('form-control')
+        $('input[type=checkbox]').removeClass('form-control')
+    })
+</script>
+
+{% endblock content %}
+    
